@@ -1,3 +1,7 @@
+#########################################
+##created by Antonio Pipinic 07.05.2022##
+#########################################
+
 #!/bin/bash
 
 SSLCERT='/home/cert/server-cert.pem.pub'
