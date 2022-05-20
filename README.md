@@ -1,6 +1,7 @@
 # ABOUT
 
 backup.sh - This script creates a signed and encrypted backup archive of a /home/<user> directory
+
 restore_backup.sh - This script 
 
 # USAGE
