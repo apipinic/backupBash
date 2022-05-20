@@ -1,4 +1,5 @@
 #ABOUT
+
 This is an application measuring the temperature on a samr21-xpro board using a sensor.
 The software is written in C with RIOT-OS(2022.07) as operating system.
 
