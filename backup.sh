@@ -9,6 +9,10 @@ currentUser="$USER"
 defaultDir=/home/${currentUser}
 tempDir=/tmp/
 arrUser=()
+SSLCERT='/home/cert/server-cert.pem'
+SSLKEY='/home/cert/server-key.pem'
+CACERTFILE='/home/cert/ca.pem'
+
 
 read -p "Specify another home directory to be backuped (default is: /home/${USER}): " otherDir
 
@@ -40,9 +44,9 @@ function sanityCheck(){
 function backupFile(){
         #of variable needs to be declared here because of date should be always higher after every loop
         of=backup-$(date +%Y-%m-%d_%H:%M:%S).tar.gz
-        if sudo tar -czvf ${tempDir}${currentUser}_${of} -C /tmp/ $defaultDir > /dev/null 2>&1
+        file=${tempDir}${currentUser}_${of}
+        if sudo tar -czvf ${file} -C /tmp/ $defaultDir > /dev/null 2>&1
         then
-                echo "Backup was finished successfully in /tmp/: "${currentUser}_${of}
                 counterFiles=$(ls -l $defaultDir | grep '^-' | wc -l)
                 let counterFilesTemp=counterFiles+counterFilesTemp
 
@@ -51,6 +55,24 @@ function backupFile(){
 
                 arrUser[${#arrUser[@]}]=$defaultDir
 
+                read -p "Please specify the keyfile you want to use for decryption: " keyFile
+
+                sudo openssl smime -encrypt -binary -aes-256-cbc -in ${file} -out ${file}.enc -outform DER /home/cert/${keyFile}
+
+                if test -f "${file}.enc"; then
+                        echo "Back created successfully"
+                        echo "Encryption of "${file} "successfully"
+                else
+                        echo "Backup failed"
+                        sudo rm -rf $file
+                        exit;
+                fi
+
+                sudo openssl dgst -sha512 -sign ${SSLKEY} -out ${file}.sha512 ${file}.enc
+
+                sudo openssl verify -verbose -CAfile ${CACERTFILE} ${SSLCERT}
+                sudo openssl x509 -in ${SSLCERT} -pubkey -noout > ${SSLCERT}.pub
+                sudo openssl dgst -sha512 -verify ${SSLCERT}.pub -signature ${file}.sha512 ${file}.enc
         fi
 }
 function newHomeDir(){
@@ -107,18 +129,13 @@ do
                 fi
 
         else
+
         unique_sorted_list=($(printf "%s\n" "${arrUser[@]}" | sort -u))
-
-        #echo $unique_sorted_list
-
-        for i in "${unique_sorted_list[@]}"
-        do
-                echo $i
-        done
 
         echo "Totally files backuped: "${counterFilesTemp}
         echo "Totally directories backuped: "${counterDirTemp}
         echo "Totally users backuped: ${#unique_sorted_list[@]}"
+        sudo rm -rf ${tempDir}${currentUser}_${of}
 
         exit 0
     fi
