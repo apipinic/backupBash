@@ -1,7 +1,7 @@
 # ABOUT
 
-This is an application measuring the temperature on a samr21-xpro board using a sensor.
-The software is written in C with RIOT-OS(2022.07) as operating system.
+backup.sh - This script creates a signed and encrypted backup archive of a /home/<user> directory
+restore_backup.sh - This script 
 
 # USAGE
 
