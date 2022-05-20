@@ -54,7 +54,7 @@ function backupFile(){
 
                 arrUser[${#arrUser[@]}]=$defaultDir
 
-                read -p "Please specify the keyfile you want to use for decryption: " keyFile
+                read -p "Please specify the keyfile you want to use for encryption: " keyFile
 
                 sudo openssl smime -encrypt -binary -aes-256-cbc -in ${file} -out ${file}.enc -outform DER /home/cert/${keyFile}
 
