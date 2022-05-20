@@ -1,4 +1,3 @@
-
 #########################################
 ##created by Antonio Pipinic 07.05.2022##
 #########################################
@@ -6,7 +5,6 @@
 #!/bin/bash
 
 currentUser="$USER"
-#of=backup-$(date +%Y-%m-%d_%H:%M:%S).tar.gz
 defaultDir=/home/${currentUser}
 tempDir=/tmp/
 arrUser=()
@@ -44,7 +42,7 @@ function sanityCheck(){
 
 function backupFile(){
         #of variable needs to be declared here because of date should be always higher after every loop
-        of=backup-$(date +%Y-%m-%d_%H:%M:%S).tar.gz
+        of=backup-$(date +%Y-%m-%d_%H-%M-%S).tar.gz
         file=${tempDir}${currentUser}_${of}
         if sudo tar -czvf ${file} -C /tmp/ $defaultDir > /dev/null 2>&1
         then
