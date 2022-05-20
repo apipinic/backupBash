@@ -1,3 +1,4 @@
+
 #########################################
 ##created by Antonio Pipinic 07.05.2022##
 #########################################
@@ -68,11 +69,11 @@ function backupFile(){
                         exit;
                 fi
 
-                sudo openssl dgst -sha512 -sign ${SSLKEY} -out ${file}.sha512 ${file}.enc
+                sudo openssl dgst -sha512 -sign ${SSLKEY} -out ${file}.enc.sha512 ${file}.enc
 
                 sudo openssl verify -verbose -CAfile ${CACERTFILE} ${SSLCERT}
                 sudo openssl x509 -in ${SSLCERT} -pubkey -noout > ${SSLCERT}.pub
-                sudo openssl dgst -sha512 -verify ${SSLCERT}.pub -signature ${file}.sha512 ${file}.enc
+                sudo openssl dgst -sha512 -verify ${SSLCERT}.pub -signature ${file}.enc.sha512 ${file}.enc
         fi
 }
 function newHomeDir(){
