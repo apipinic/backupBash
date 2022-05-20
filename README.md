@@ -1,16 +1,16 @@
-#ABOUT
+# ABOUT
 
 This is an application measuring the temperature on a samr21-xpro board using a sensor.
 The software is written in C with RIOT-OS(2022.07) as operating system.
 
-#USAGE
+# USAGE
 
 (1) build the application -> make BOARD=samr21-xpro
 
 (2) flash the application -> make BOARD=samr21-xpro flash
 
-#INFO: install moserial to display the result
-#CONFIGURE MOSERIAL:
+# INFO: install moserial to display the result
+# CONFIGURE MOSERIAL:
 	(1) start moserial
 	(2) click on port setup
 	(3) Device: /dev/ttyACM0
@@ -26,6 +26,6 @@ The software is written in C with RIOT-OS(2022.07) as operating system.
 (3) output example: Temperature [C]: 26.31 
 
 
-#TEAM
-Fajic Ahmedin, Bajrica Armin, Fauland Robert
-05-13-2022, FH CAMPUS WIEN
+# TEAM
+Antonio Pipinic
+20-05-2022, FH CAMPUS WIEN
