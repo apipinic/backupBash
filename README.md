@@ -22,16 +22,23 @@ openssl x509 -req -in server-req.pem -days 3600 -CA ca.pem -CAkey ca-key.pem -se
 # USAGE - Backup
 
 (1) bash /home/backup.sh - to create a backup
+  
 (2) You will be asked for a home directory to be backuped, default folder is the logged in user e.g ubuntu
+  
 (3) Specify the keyfile you want to use for encryption e.g server-cert.pem
+  
 (4) A signed and encrypted backup is created under /tmp/ - for more backups press "yes"
 
 # USAGE - Restore
 
 (1) bash /home/restore_backup.sh - to restore a backup
+  
 (2) You will get a list of backupes to restore, use als input the whole output folder+filename e.g /tmp/ubuntu_backup-2022-05-23_15-58-31.tar.gz.enc
+  
 (3) Specify SSL certificate for verification purposes
+  
 (4) Secify the keyfile you want to use for decryption
+  
 (5) Congratulations, you successfully restored the backup!
 
 # TEAM
