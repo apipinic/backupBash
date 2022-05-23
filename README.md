@@ -10,7 +10,7 @@ restore_backup.sh - This script
 sudo mkdir /home/cert
 sudo chmod -R a+rwx cert/ 
 
-(2)Create CA certificate
+(2) Create CA certificate
 openssl genrsa 2048 > ca-key.pem
 openssl req -new -x509 -nodes -days 3600 -key ca-key.pem -out ca.pem
 
