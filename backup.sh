@@ -72,6 +72,10 @@ function backupFile(){
                 sudo openssl verify -verbose -CAfile ${CACERTFILE} ${SSLCERT}
                 sudo openssl x509 -in ${SSLCERT} -pubkey -noout > ${SSLCERT}.pub
                 sudo openssl dgst -sha512 -verify ${SSLCERT}.pub -signature ${file}.enc.sha512 ${file}.enc
+
+                echo "-----------------------------------------------------------"
+                echo "Details of created archive:"
+                gunzip -c ${tempDir}${currentUser}_${of} | tar -tvf -
         fi
 }
 function newHomeDir(){
@@ -134,7 +138,6 @@ do
         echo "Totally files backuped: "${counterFilesTemp}
         echo "Totally directories backuped: "${counterDirTemp}
         echo "Totally users backuped: ${#unique_sorted_list[@]}"
-        sudo rm -rf ${tempDir}${currentUser}_${of}
 
         exit 0
     fi
